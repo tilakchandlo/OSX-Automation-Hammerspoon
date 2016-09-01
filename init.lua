@@ -61,6 +61,37 @@ if caffeine then
     caffeine:setClickCallback(caffeineClicked)
     setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
 end
+
+---- -----------------------------------------------------------------------
+--                         ** CAFFINE **                       --
+-- -----------------------------------------------------------------------
+local lowPower = hs.menubar.new()
+lowPowerOn = false
+function setLowPowerDisplay(state)
+    if state then
+        lowPower:setIcon("charge-battery.png")
+    else
+        lowPower:setIcon("full-battery.png")
+    end
+end
+
+function lowPowerClicked()
+    lowPowerOn = not lowPowerOn
+    setLowPowerDisplay(lowPowerOn)
+    hs.brightness.set(30)
+    if lowPowerOn then
+      hs.alert.show("Low Power Mode On")
+    else
+      hs.brightness.set(100)
+      hs.alert.show("Low Power Mode Off")
+    end
+end
+
+if lowPower then
+    lowPower:setClickCallback(lowPowerClicked)
+    setLowPowerDisplay(lowPowerOn)
+end
+
 ---- -----------------------------------------------------------------------
 --                         ** LOCK/SLEEP MAC **                       --
 -- -----------------------------------------------------------------------
